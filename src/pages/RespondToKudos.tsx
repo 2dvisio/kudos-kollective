@@ -23,7 +23,7 @@ const RespondToKudos = () => {
   const [loading, setLoading] = useState(true);
   const [expired, setExpired] = useState(false);
   const [score, setScore] = useState<number | null>(null);
-  const [comment, setComment] = useState('');
+  
   const [respondentName, setRespondentName] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -59,7 +59,6 @@ const RespondToKudos = () => {
     const { error } = await supabase.from('kudos_responses').insert({
       kudos_request_id: request.id,
       score,
-      comment: comment.trim() || null,
       respondent_name: respondentName.trim() || null,
     });
 
@@ -208,16 +207,6 @@ const RespondToKudos = () => {
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="comment">Comment (optional)</Label>
-            <Textarea
-              id="comment"
-              placeholder="Share your thoughts..."
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              rows={3}
-            />
-          </div>
 
           <Button
             className="w-full"
