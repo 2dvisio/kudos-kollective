@@ -26,9 +26,7 @@ const PublicReport = () => {
       if (!token) return;
 
       const { data: reportData } = await supabase
-        .from('kudos_reports')
-        .select('*')
-        .eq('share_token', token)
+        .rpc('get_kudos_report_by_token', { _share_token: token })
         .single();
 
       if (!reportData) { setLoading(false); return; }
