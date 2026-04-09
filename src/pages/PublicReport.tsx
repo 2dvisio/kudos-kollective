@@ -12,7 +12,7 @@ type ReportData = {
     title: string;
     description: string | null;
     scoring_type: string;
-    responses: { score: number; comment: string | null; respondent_name: string | null }[];
+    responses: { score: number; respondent_name: string | null }[];
   }[];
 };
 
@@ -123,12 +123,6 @@ const PublicReport = () => {
                         </span>
                       )}
                     </div>
-                    {req.responses.filter(r => r.comment).map((r, i) => (
-                      <div key={i} className="bg-secondary/50 rounded-lg px-3 py-2 text-sm">
-                        <span className="font-medium">{r.respondent_name || 'Anonymous'}: </span>
-                        <span className="text-muted-foreground">{r.comment}</span>
-                      </div>
-                    ))}
                   </div>
                 )}
               </CardContent>
