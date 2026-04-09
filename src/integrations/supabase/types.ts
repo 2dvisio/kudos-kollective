@@ -144,7 +144,42 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_kudos_report_by_token: {
+        Args: { _share_token: string }
+        Returns: {
+          created_at: string
+          id: string
+          kudos_request_ids: string[]
+          title: string
+        }[]
+      }
+      get_kudos_request_by_token: {
+        Args: { _share_token: string }
+        Returns: {
+          description: string
+          expires_at: string
+          id: string
+          scoring_type: Database["public"]["Enums"]["scoring_type"]
+          title: string
+        }[]
+      }
+      get_kudos_requests_by_ids: {
+        Args: { _ids: string[] }
+        Returns: {
+          description: string
+          id: string
+          scoring_type: Database["public"]["Enums"]["scoring_type"]
+          title: string
+        }[]
+      }
+      get_kudos_responses_by_request_id: {
+        Args: { _request_id: string }
+        Returns: {
+          comment: string
+          respondent_name: string
+          score: number
+        }[]
+      }
     }
     Enums: {
       scoring_type: "thumbs_up" | "thumbs_up_down" | "nps"

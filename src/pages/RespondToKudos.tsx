@@ -32,9 +32,7 @@ const RespondToKudos = () => {
     const fetchRequest = async () => {
       if (!token) return;
       const { data, error } = await supabase
-        .from('kudos_requests')
-        .select('id, title, description, scoring_type, expires_at')
-        .eq('share_token', token)
+        .rpc('get_kudos_request_by_token', { _share_token: token })
         .single();
 
       if (error || !data) {
