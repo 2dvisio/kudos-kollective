@@ -163,6 +163,23 @@ export type Database = {
           title: string
         }[]
       }
+      get_kudos_requests_by_ids: {
+        Args: { _ids: string[] }
+        Returns: {
+          description: string
+          id: string
+          scoring_type: Database["public"]["Enums"]["scoring_type"]
+          title: string
+        }[]
+      }
+      get_kudos_responses_by_request_id: {
+        Args: { _request_id: string }
+        Returns: {
+          comment: string
+          respondent_name: string
+          score: number
+        }[]
+      }
     }
     Enums: {
       scoring_type: "thumbs_up" | "thumbs_up_down" | "nps"
