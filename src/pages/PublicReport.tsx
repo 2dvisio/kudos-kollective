@@ -32,18 +32,14 @@ const PublicReport = () => {
       if (!reportData) { setLoading(false); return; }
 
       const { data: reqs } = await supabase
-        .from('kudos_requests')
-        .select('id, title, description, scoring_type')
-        .in('id', reportData.kudos_request_ids);
+        .rpc('get_kudos_requests_by_ids', { _ids: reportData.kudos_request_ids });
 
       if (!reqs) { setLoading(false); return; }
 
       const requestsWithResponses = await Promise.all(
-        reqs.map(async (req) => {
+        (reqs as any[]).map(async (req: any) => {
           const { data: responses } = await supabase
-            .from('kudos_responses')
-            .select('score, comment, respondent_name')
-            .eq('kudos_request_id', req.id);
+            .rpc('get_kudos_responses_by_request_id', { _request_id: req.id });
           return { ...req, responses: responses || [] };
         })
       );
