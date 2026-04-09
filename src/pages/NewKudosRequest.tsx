@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
+import { buildPublicAppUrl } from '@/lib/public-url';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -58,7 +59,7 @@ const NewKudosRequest = () => {
       return;
     }
 
-    const shareUrl = `${window.location.origin}/k/${data.share_token}`;
+    const shareUrl = buildPublicAppUrl(`/k/${data.share_token}`);
     await navigator.clipboard.writeText(shareUrl).catch(() => {});
     toast.success('Kudos request created! Share link copied to clipboard.');
     navigate('/');
