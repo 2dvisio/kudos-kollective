@@ -14,7 +14,131 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      kudos_reports: {
+        Row: {
+          created_at: string
+          id: string
+          kudos_request_ids: string[]
+          share_token: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          kudos_request_ids: string[]
+          share_token?: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          kudos_request_ids?: string[]
+          share_token?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      kudos_requests: {
+        Row: {
+          created_at: string
+          description: string | null
+          expires_at: string
+          id: string
+          scoring_type: Database["public"]["Enums"]["scoring_type"]
+          share_token: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          expires_at: string
+          id?: string
+          scoring_type?: Database["public"]["Enums"]["scoring_type"]
+          share_token?: string
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          expires_at?: string
+          id?: string
+          scoring_type?: Database["public"]["Enums"]["scoring_type"]
+          share_token?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      kudos_responses: {
+        Row: {
+          comment: string | null
+          created_at: string
+          id: string
+          kudos_request_id: string
+          respondent_name: string | null
+          score: number
+        }
+        Insert: {
+          comment?: string | null
+          created_at?: string
+          id?: string
+          kudos_request_id: string
+          respondent_name?: string | null
+          score: number
+        }
+        Update: {
+          comment?: string | null
+          created_at?: string
+          id?: string
+          kudos_request_id?: string
+          respondent_name?: string | null
+          score?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kudos_responses_kudos_request_id_fkey"
+            columns: ["kudos_request_id"]
+            isOneToOne: false
+            referencedRelation: "kudos_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +147,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      scoring_type: "thumbs_up" | "thumbs_up_down" | "nps"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +274,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      scoring_type: ["thumbs_up", "thumbs_up_down", "nps"],
+    },
   },
 } as const
