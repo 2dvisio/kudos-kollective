@@ -175,7 +175,6 @@ export type Database = {
       get_kudos_responses_by_request_id: {
         Args: { _request_id: string }
         Returns: {
-          comment: string
           respondent_name: string
           score: number
         }[]
