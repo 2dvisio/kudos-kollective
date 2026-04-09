@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
+import { buildPublicAppUrl } from '@/lib/public-url';
 import Header from '@/components/Header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -71,7 +72,7 @@ const Dashboard = () => {
   }, [user]);
 
   const copyShareLink = (token: string) => {
-    const url = `${window.location.origin}/k/${token}`;
+    const url = buildPublicAppUrl(`/k/${token}`);
     navigator.clipboard.writeText(url);
     toast.success('Share link copied!');
   };
@@ -113,7 +114,7 @@ const Dashboard = () => {
       return;
     }
 
-    const reportUrl = `${window.location.origin}/report/${data.share_token}`;
+    const reportUrl = buildPublicAppUrl(`/report/${data.share_token}`);
     await navigator.clipboard.writeText(reportUrl).catch(() => {});
     toast.success('Report created! Share link copied to clipboard.');
     setReportDialogOpen(false);
